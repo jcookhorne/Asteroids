@@ -1,56 +1,41 @@
 
-// global var
-let canvas, ctx;
-function startGame(){
-    myGameArea.start();
+// global var 
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext("2d");
+let move = 5;
+/*function startGame(){
+    player();
+}*/
+class player{
+    constructor (x, y, color){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.speed = 1;
+    this.alive = true;
+    this.lives = 2;
+    this.rotSpeed = 3;
 }
-var myGameArea = () => {
-    canvas = document.getElementById('gameCanvas');
-    ctx = canvas.getContext("2d");
-    ctx.fillStyle = 'red';
-    ctx.fillRect(10, 10, 50, 50);
+    draw(){
+        ctx.beginPath(); 
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(75, 100);
+        this.ctx.lineTo(100, 75);
+        ctx.lineTo(125, 100);
+    }
 }
-var shape = () =>{
+const player = new player(100, 25, 'black');
+console.log(player);
+/*
+var player =() =>{
     canvas = document.getElementById('gameCanvas');
     ctx = canvas.getContext('2d');
-    ctx.lineWidth = 10;
-
-    // Wall
-    ctx.strokeRect(75, 140, 150, 110);
-    
-    // Door
-    ctx.fillRect(130, 190, 40, 60);
-    
-    // Roof
-    ctx.beginPath();
-    ctx.moveTo(50, 140);
-    ctx.lineTo(150, 60);
-    ctx.lineTo(250, 140);
-    ctx.closePath();
-    ctx.stroke();
-}
-//document.addEventListener('DOMContentLoaded', myGameArea)
-//ctx.strokeStyle = 'red'
-//ctx.fillStyle = 'red';
-//ctx.fillRect(10, 10, 50, 50);
-
-var keyboard = {
-    left: 37,
-    right: 39,
-    space: 32,
-
-    keys: {},
-    
-    logKeyDown: function(event) {
-        console.log(event.keyCode);
-    },
-
-    keyDown: function(event) {
-        this.keys[event.keyCode] = true;
-    },
-
-    keyUp: function(event) {
-        this.keys[event.keyCode] = false;
-    }
+    ctx.fillStyle = "black";
+    ctx.beginPath(); 
+    this.ctx.moveTo(100,25);
+    this.ctx.lineTo(75, 100);
+    this.ctx.lineTo(100, 75);
+    ctx.lineTo(125, 100);
+    ctx.fill();
 };
-
+*/
