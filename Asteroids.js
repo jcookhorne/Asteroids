@@ -1,8 +1,12 @@
 
 // global var 
-const canvas = document.getElementById('gameCanvas');
+const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext("2d");
-let move = 5;
+canvas.width = 1020;
+canvas.height = 720;
+const start_X = canvas.width/2;
+const start_Y = canvas.height/2;
+console.log(canvas)
 /*function startGame(){
     player();
 }*/
@@ -18,24 +22,45 @@ class player{
 }
     draw(){
         ctx.beginPath(); 
-        this.ctx.moveTo(this.x, this.y);
-        this.ctx.lineTo(75, 100);
-        this.ctx.lineTo(100, 75);
-        ctx.lineTo(125, 100);
+        ctx.moveTo((start_X), (start_Y));
+        ctx.lineTo((start_X)-20, (start_Y)+50);
+        ctx.lineTo((start_X),    (start_Y)+35);
+        ctx.lineTo((start_X)+20, (start_Y)+50);
+        ctx.stroke();
+        ctx.fill();
     }
 }
-const player = new player(100, 25, 'black');
+// calling player to canvas!!!
+player = new player(start_X, start_Y, 'black');
+player.draw();
 console.log(player);
-/*
-var player =() =>{
-    canvas = document.getElementById('gameCanvas');
-    ctx = canvas.getContext('2d');
-    ctx.fillStyle = "black";
-    ctx.beginPath(); 
-    this.ctx.moveTo(100,25);
-    this.ctx.lineTo(75, 100);
-    this.ctx.lineTo(100, 75);
-    ctx.lineTo(125, 100);
-    ctx.fill();
-};
-*/
+class projectile{
+    constructor (x, y, speed, color){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.speed = speed;
+    
+}
+    draw(){
+        ctx.beginPath(); 
+        ctx.moveTo((start_X), (start_Y));
+        ctx.lineTo((start_X)-20, (start_Y)+50);
+        ctx.lineTo((start_X),    (start_Y)+35);
+        ctx.lineTo((start_X)+20, (start_Y)+50);
+        ctx.stroke();
+        ctx.fill();
+    }
+}
+// adding event for projectiles!!
+addEventListener('click', (event) =>{
+    const projectile = new Projectile(
+        event.clientX,
+        event.clientY,
+        3,
+        'blue'
+    )
+})
+projectile.draw();
+
+
