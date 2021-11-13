@@ -10,7 +10,7 @@ console.log(canvas)
 /*function startGame(){
     player();
 }*/
-class player{
+class Player{
     constructor (x, y, color){
     this.x = x;
     this.y = y;
@@ -30,37 +30,40 @@ class player{
         ctx.fill();
     }
 }
-// calling player to canvas!!!
-player = new player(start_X, start_Y, 'black');
+// calling projectiles in now!! 
+const player = new Player(start_X, start_Y, 'black');
 player.draw();
-console.log(player);
-class projectile{
-    constructor (x, y, speed, color){
+//console.log(player);
+class Projectile{
+    constructor (x, y, radius, speed, color){
     this.x = x;
     this.y = y;
     this.color = color;
     this.speed = speed;
-    
+    this.radius = radius;
 }
     draw(){
         ctx.beginPath(); 
-        ctx.moveTo((start_X), (start_Y));
-        ctx.lineTo((start_X)-20, (start_Y)+50);
-        ctx.lineTo((start_X),    (start_Y)+35);
-        ctx.lineTo((start_X)+20, (start_Y)+50);
-        ctx.stroke();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2, false)
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
 }
 // adding event for projectiles!!
+
 addEventListener('click', (event) =>{
     const projectile = new Projectile(
-        event.clientX,
-        event.clientY,
+        event.clientX -448,
+        event.clientY - 8,
         3,
-        'blue'
+        null,'blue'
+
     )
+    
+projectile.draw();
+
 })
+
 projectile.draw();
 
 
