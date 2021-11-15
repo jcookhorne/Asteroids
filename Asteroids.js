@@ -6,19 +6,22 @@ canvas.width = 1020;
 canvas.height = 720;
 const start_X = canvas.width/2;
 const start_Y = canvas.height/2;
-console.log(canvas)
+const turn_speed = 360; // turn speed in degrees per second
+const FPS = 30;
+//console.log(canvas)
 /*function startGame(){
     player();
 }*/
+
+// declaring Player constructor and insides
+
 class Player{
     constructor (x, y, color){
     this.x = x;
     this.y = y;
     this.color = color;
-    this.speed = 1;
-    this.alive = true;
-    this.lives = 2;
-    this.rotSpeed = 3;
+    this.rotation = this.rotation;
+    this.angle = this.angle;
 }
     draw(){
         ctx.beginPath(); 
@@ -30,10 +33,50 @@ class Player{
         ctx.fill();
     }
 }
-// calling projectiles in now!! 
+
 const player = new Player(start_X, start_Y, 'black');
 player.draw();
-//console.log(player);
+// rotation of player
+
+
+// event handler for keys
+addEventListener("keydown", keyDown);
+addEventListener("keyup", keyUp);
+
+function keyDown(ev){
+    switch(ev.keyCode){
+        case 37: // left arrow key (rotate ship left )
+        Player.rotation = turn_speed / 180 *Math.PI/FPS
+            break;
+        
+        case 38: // up arrow key (propel ship forward)
+            break;
+        
+        case 39:
+            Player.rotation = -turn_speed / 180 *Math.PI/FPS
+            break; // right arrow key(rotate ship right)
+
+    }
+
+}
+function keyUp(){
+    switch(ev.keyCode){
+        case 37: // left arrow key (stop rotate ship left )
+        Player.rotation = 0
+            break;
+        
+        case 38: // up arrow key (stop propelling ship forward)
+            break;
+        
+        case 39:
+            Player.rotation = 0
+            break; // right arrow key(stop rotate ship right)
+
+    }
+
+}
+
+// calling projectiles in now!! 
 class Projectile{
     constructor (x, y, radius, speed, color){
     this.x = x;
@@ -48,22 +91,38 @@ class Projectile{
         ctx.fillStyle = this.color;
         ctx.fill();
     }
+    update(){
+        this.draw
+        this.x = this.x + this.speed.x;
+        this.y = this.y + this.speed.y;
+    }
+}
+const projectiles = []
+// Animating projectiles
+function animate() {
+    requestAnimationFrame(animate)
+    ctx.clearRect(0,0,canvas.width, canvas.height)
+    player.draw
+    projectiles.forEach((Projectile) =>{
+        Projectile.update()
+    })
 }
 // adding event for projectiles!!
-
 addEventListener('click', (event) =>{
-    const projectile = new Projectile(
-        event.clientX -448,
-        event.clientY - 8,
-        3,
-        null,'blue'
-
+    const angle = Math.atan2(
+        event.clientX - canvas.height
     )
-    
+  
+    /* const projectile = new Projectile(
+        //event.clientX = player.
+        event.clientX -448, event.clientY - 8,3,null,'blue'
+    )
+*/    
 projectile.draw();
 
 })
 
 projectile.draw();
 
-
+// rotate ship
+Player.angle += Player.rotation;
