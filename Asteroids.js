@@ -14,9 +14,9 @@
 var can = document.getElementById("gameCanvas");
 const ctx = can.getContext("2d");
 const FPS = 30;
-can.width = 1020;
-can.height = 720;
-const playerSize = 25; // size in pixels?? 
+//can.width = 1020;
+//can.height = 720;
+const playerSize = 60; // size in pixels?? 
 const turn_speed = 360; // turn speed in degrees per second
 // declaring player method
 
@@ -24,7 +24,7 @@ var player = {
     x: can.width/2,
     y: can.height/2,
     r: playerSize /2,
-    a: 90/180 * Math.PI, // converting this to Radians -- 90 is straight up so to point upwards we do that
+    a: 90 / 180 * Math.PI // converting this to Radians -- 90 is straight up so to point upwards we do that
 
 };
 
@@ -36,18 +36,23 @@ function update(){
     ctx.fillRect(0,0,can.width,can.height)
     // draw ship
     ctx.strokeStyle = "white",
-    ctx.width = playerSize/20,
+    ctx.lineWidth = playerSize/20,
     ctx.beginPath();
     ctx.moveTo(// nose of the ship
         player.x + player.r * Math.cos(player.a),
         player.y - player.r * Math.sin(player.a),
     );// you can easily just do the graphing with numbers buuuuut imma just copy this
     ctx.lineTo( // left of player
-        player.x - player.r * Math.cos(player.a) + Math.sin(player.a),
-        player.y + player.r * Math.sin(player.a) - Math.cos(player.a)
+        player.x - player.r * (Math.cos(player.a) + Math.sin(player.a)),
+        player.y + player.r * (Math.sin(player.a) - Math.cos(player.a))
     );
+    ctx.lineTo( // right of player
+        player.x - player.r * (Math.cos(player.a) - Math.sin(player.a)),
+        player.y + player.r * (Math.sin(player.a) + Math.cos(player.a))
+    );
+     ctx.closePath();   
     ctx.stroke();
-    ctx.fill();
+  
 
     //rotate ship
 
