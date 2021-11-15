@@ -1,17 +1,23 @@
 
 // global var 
-const canvas = document.querySelector('canvas');
+//const canvas = document.querySelector('canvas');
+var canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1020;
 canvas.height = 720;
+const FPS = 30;
 const start_X = canvas.width/2;
 const start_Y = canvas.height/2;
 const turn_speed = 360; // turn speed in degrees per second
-const FPS = 30;
-//console.log(canvas)
-/*function startGame(){
-    player();
-}*/
+
+setInterval(update,1000 / FPS);
+
+function update(){
+    // drawing canvas again :(
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+    
+}
 
 // declaring Player constructor and insides
 
@@ -43,6 +49,7 @@ player.draw();
 addEventListener("keydown", keyDown);
 addEventListener("keyup", keyUp);
 
+//pressing Keys
 function keyDown(ev){
     switch(ev.keyCode){
         case 37: // left arrow key (rotate ship left )
@@ -57,8 +64,8 @@ function keyDown(ev){
             break; // right arrow key(rotate ship right)
 
     }
-
 }
+// No longer Pressing Keys
 function keyUp(){
     switch(ev.keyCode){
         case 37: // left arrow key (stop rotate ship left )
@@ -126,3 +133,5 @@ projectile.draw();
 
 // rotate ship
 Player.angle += Player.rotation;
+
+
