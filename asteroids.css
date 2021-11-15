@@ -3,6 +3,7 @@ body{
     background-color: rgb(124, 210, 245);
 }
 canvas{
+    background-color: aliceblue;
     padding: 0%;
     margin: auto;
     margin-bottom: 1;

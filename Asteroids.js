@@ -1,66 +1,73 @@
-
+// notes : Constructors need parameters and those parameters seem to be for when users are going to mess with things right
+// sooooo use a method over a constructor when holding a bunch of info on an object??
+//class Player{
+//    constructor (x, y, color)  << see parameters soo when calling i/user have to enter stuff for this
+// i dont want to enter things because thats too much the method we will make is better
+//        {this.x = x; this.y = y; this.color = color;}
+//        
+//       
+//
+//
 // global var 
 //const canvas = document.querySelector('canvas');
-var canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = 1020;
-canvas.height = 720;
-const FPS = 30;
-const start_X = canvas.width/2;
-const start_Y = canvas.height/2;
-const turn_speed = 360; // turn speed in degrees per second
 
-setInterval(update,1000 / FPS);
+var can = document.getElementById("gameCanvas");
+const ctx = can.getContext("2d");
+const FPS = 30;
+can.width = 1020;
+can.height = 720;
+const playerSize = 25; // size in pixels?? 
+const turn_speed = 360; // turn speed in degrees per second
+// declaring player method
+
+var player = {
+    x: can.width/2,
+    y: can.height/2,
+    r: playerSize /2,
+    a: 90/180 * Math.PI, // converting this to Radians -- 90 is straight up so to point upwards we do that
+
+};
+
+setInterval(update, 1000 / FPS);
 
 function update(){
     // drawing canvas again :(
     ctx.fillStyle = "black";
-    ctx.fillRect(0,0,canvas.width,canvas.height)
-    
+    ctx.fillRect(0,0,can.width,can.height)
+    // draw ship
+    ctx.strokeStyle = "white",
+    ctx.width = playerSize/20,
+    ctx.beginPath();
+    ctx.moveTo(// nose of the ship
+        player.x + player.r * Math.cos(player.a),
+        player.y - player.r * Math.sin(player.a),
+    );// you can easily just do the graphing with numbers buuuuut imma just copy this
+    ctx.lineTo( // left of player
+        player.x - player.r * Math.cos(player.a) + Math.sin(player.a),
+        player.y + player.r * Math.sin(player.a) - Math.cos(player.a)
+    );
+    ctx.stroke();
+    ctx.fill();
+
+    //rotate ship
+
+    // move  the ship
 }
-
-// declaring Player constructor and insides
-
-class Player{
-    constructor (x, y, color){
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.rotation = this.rotation;
-    this.angle = this.angle;
-}
-    draw(){
-        ctx.beginPath(); 
-        ctx.moveTo((start_X), (start_Y));
-        ctx.lineTo((start_X)-20, (start_Y)+50);
-        ctx.lineTo((start_X),    (start_Y)+35);
-        ctx.lineTo((start_X)+20, (start_Y)+50);
-        ctx.stroke();
-        ctx.fill();
-    }
-}
-
-const player = new Player(start_X, start_Y, 'black');
-player.draw();
-// rotation of player
-
-
 // event handler for keys
 addEventListener("keydown", keyDown);
 addEventListener("keyup", keyUp);
-
 //pressing Keys
 function keyDown(ev){
     switch(ev.keyCode){
         case 37: // left arrow key (rotate ship left )
-        Player.rotation = turn_speed / 180 *Math.PI/FPS
+        player.r = turn_speed / 180 *Math.PI/FPS
             break;
         
         case 38: // up arrow key (propel ship forward)
             break;
         
         case 39:
-            Player.rotation = -turn_speed / 180 *Math.PI/FPS
+            player.r = -turn_speed / 180 *Math.PI/FPS
             break; // right arrow key(rotate ship right)
 
     }
@@ -69,14 +76,14 @@ function keyDown(ev){
 function keyUp(){
     switch(ev.keyCode){
         case 37: // left arrow key (stop rotate ship left )
-        Player.rotation = 0
+        player.r = 0
             break;
         
         case 38: // up arrow key (stop propelling ship forward)
             break;
         
         case 39:
-            Player.rotation = 0
+            player.r = 0
             break; // right arrow key(stop rotate ship right)
 
     }
@@ -104,34 +111,13 @@ class Projectile{
         this.y = this.y + this.speed.y;
     }
 }
-const projectiles = []
+
 // Animating projectiles
-function animate() {
-    requestAnimationFrame(animate)
-    ctx.clearRect(0,0,canvas.width, canvas.height)
-    player.draw
-    projectiles.forEach((Projectile) =>{
-        Projectile.update()
-    })
-}
-// adding event for projectiles!!
-addEventListener('click', (event) =>{
-    const angle = Math.atan2(
-        event.clientX - canvas.height
-    )
-  
-    /* const projectile = new Projectile(
-        //event.clientX = player.
-        event.clientX -448, event.clientY - 8,3,null,'blue'
-    )
-*/    
-projectile.draw();
 
-})
 
-projectile.draw();
+
 
 // rotate ship
-Player.angle += Player.rotation;
+
 
 
